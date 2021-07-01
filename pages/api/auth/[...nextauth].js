@@ -1,5 +1,11 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import Adapters from "next-auth/adapters";
+
+import User, { UserSchema } from "../../../models/User";
+import UserInfo from "../../../models/UserInfo";
+
+import dbConnect from "../../../utils/dbConnect";
 
 export default NextAuth({
 	providers: [
@@ -9,12 +15,12 @@ export default NextAuth({
 			scope: "user",
 		}),
 	],
-	callbacks: {
-		async session(session, token) {
-			// console.log({ token: token });
-			console.log({ session: session });
-			return session;
+	adapter: Adapters.TypeORM.Adapter(process.env.MONGODB_URI, {
+		models: {
+			User: { model: User, schema: UserSchema },
 		},
+	}),
+	callbacks: {
 		async signIn(profile, account, metadata) {
 			// https://developer.github.com/v3/users/emails/#list-email-addresses-for-the-authenticated-user
 			const res = await fetch("https://api.github.com/user/emails", {
@@ -30,4 +36,5 @@ export default NextAuth({
 			primaryEmail ? (profile.email = primaryEmail.email) : console.log(emails);
 		},
 	},
+	database: `${process.env.MONGODB_URI}`,
 });
