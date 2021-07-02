@@ -1,0 +1,29 @@
+.form {
+	background: white;
+	color: 151371;
+}
+
+.muted {
+	color: #b9bcc1;
+}
+
+.form a {
+	color: var(--primary-color);
+}
+.form a:hover {
+	color: var(--primary-color-hover);
+}
+
+.form button {
+	margin-top: 20px;
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+	width: 100%;
+	color: white;
+}
+
+.form button:hover {
+	background-color: var(--primary-color-hover);
+	border-color: var(--primary-color-over);
+	color: white;
+}

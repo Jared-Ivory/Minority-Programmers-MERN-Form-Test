@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { EntryForm } from "../components";
+import { Home } from "../components";
 export default function Index() {
 	return (
 		<div>
@@ -10,10 +10,14 @@ export default function Index() {
 					integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 					crossOrigin="anonymous"
 				/>
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap"
+					rel="stylesheet"
+				></link>
 			</Head>
-			<div className="home">
-				<EntryForm />
-			</div>
+			<Home />
 		</div>
 	);
 }
