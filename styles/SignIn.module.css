@@ -1,0 +1,13 @@
+.signin {
+	background: linear-gradient(
+		90deg,
+		#ff00b8 -0.69%,
+		#ff655b 50.18%,
+		#ffc700 100%
+	);
+	min-height: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	min-width: 100%;
+}

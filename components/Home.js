@@ -8,20 +8,26 @@ const Home = () => {
 	const [session, loading] = useSession();
 	const router = useRouter();
 
-	const getRenderedContent = () => {
-		if (session) {
-			router.push(`/profile/${session.user.name}`);
-		}
-		return <EntryForm />;
+	const beginSignInFlow = () => {
+		setTimeout(() => {
+			router.push(`/auth/signin`);
+		}, 3000);
 	};
-
 	if (loading) {
 		return <div>Loading...</div>;
 	}
+
+	session ? router.push(`/profile/${session.user.name}`) : beginSignInFlow();
 	return (
 		<div>
-			<button onClick={() => signIn()}>Sign In</button>
-			<div className={styles.home}>{getRenderedContent()}</div>
+			<div className={styles.home}>
+				<div className="jumbotron jumbotron-fluid text-white">
+					<div className="container">
+						<h1 className="display-4">Home</h1>
+						<p className="lead">This is a temporary page...</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

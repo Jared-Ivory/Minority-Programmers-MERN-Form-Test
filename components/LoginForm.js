@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { getProviders, signIn } from "next-auth/client";
 import styles from "../styles/LoginForm.module.css";
 
 const LoginForm = ({ formdata, setIsSigningUp, isSigningUp }) => {
+	const [providers, setProviders] = useState([]);
 	const [fullname, setFullname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	useEffect(() => {
-		console.log(email);
-	}, [email, password]);
+	useEffect(async () => {
+		const providers = await getProviders();
+		setProviders(providers);
+		console.log(providers);
+	}, []);
+
 	const getRenderedContent = () => {
 		return (
 			<div className="row">
@@ -78,7 +83,15 @@ const LoginForm = ({ formdata, setIsSigningUp, isSigningUp }) => {
 			</p>
 			<form>
 				<div className="border-bottom text-center mb-4">
-					<a href="/api/auth/github">Github</a>
+					<>
+						{Object.values(providers).map((provider) => (
+							<div key={provider.name}>
+								<button onClick={() => signIn(provider.id)}>
+									Sign in with {provider.name}
+								</button>
+							</div>
+						))}
+					</>
 				</div>
 				{getRenderedContent()}
 				<button

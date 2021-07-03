@@ -38,5 +38,9 @@ export default NextAuth({
 			primaryEmail ? (profile.email = primaryEmail.email) : console.log(emails);
 		},
 	},
+	pages: {
+		error: "/auth/error",
+		signIn: "/auth/signin",
+	},
 	database: `${process.env.MONGODB_URI}`,
 });
