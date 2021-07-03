@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/LoginForm.module.css";
 
-const LoginForm = ({ formdata, setIsNew, isNew }) => {
+const LoginForm = ({ formdata, setIsSigningUp, isSigningUp }) => {
+	const [fullname, setFullname] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	useEffect(() => {
+		console.log(email);
+	}, [email, password]);
 	const getRenderedContent = () => {
-		switch (formdata.type) {
-			case "Sign Up":
-				return (
+		return (
+			<div className="row">
+				{formdata.type === "Sign Up" && (
 					<div className="row">
 						<div className="form-label-group">
 							<label htmlFor="inputName">Full name</label>
@@ -15,62 +22,39 @@ const LoginForm = ({ formdata, setIsNew, isNew }) => {
 								placeholder="Full name"
 								required=""
 								autoFocus=""
-							/>
-						</div>
-						<div className="form-label-group">
-							<label htmlFor="inputEmail">Email address</label>
-							<input
-								type="email"
-								id="inputEmail"
-								className="form-control"
-								placeholder="Email address"
-								required=""
-								autoFocus=""
-							/>
-						</div>
-
-						<div className="form-label-group">
-							<label htmlFor="inputPassword">Password</label>
-							<input
-								type="password"
-								id="inputPassword"
-								className="form-control"
-								placeholder="Password"
-								required=""
+								value={fullname}
+								onChange={(e) => setFullname(e.target.value)}
 							/>
 						</div>
 					</div>
-				);
-				break;
-			case "Login":
-				return (
-					<div className="row">
-						<div className="form-label-group">
-							<label htmlFor="inputEmail">Email address</label>
-							<input
-								type="email"
-								id="inputEmail"
-								className="form-control"
-								placeholder="Email address"
-								required=""
-								autoFocus=""
-							/>
-						</div>
-
-						<div className="form-label-group">
-							<label htmlFor="inputPassword">Password</label>
-							<input
-								type="password"
-								id="inputPassword"
-								className="form-control"
-								placeholder="Password"
-								required=""
-							/>
-						</div>
-					</div>
-				);
-				break;
-		}
+				)}
+				<div className="form-label-group">
+					<label htmlFor="inputEmail">Email address</label>
+					<input
+						type="email"
+						id="inputEmail"
+						className="form-control"
+						placeholder="Email address"
+						required={true}
+						autoFocus=""
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</div>
+				<div className="form-label-group">
+					<label htmlFor="inputPassword">Password</label>
+					<input
+						type="password"
+						id="inputPassword"
+						className="form-control"
+						placeholder="Password"
+						required={true}
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+				</div>
+			</div>
+		);
 	};
 
 	const handleButton = () => {
@@ -81,18 +65,20 @@ const LoginForm = ({ formdata, setIsNew, isNew }) => {
 				break;
 		}
 	};
+
+	const handleGitHub = () => {};
 	return (
 		<div className={styles.form + " p-5"}>
 			<h2>{formdata.formdata.title}</h2>
 			<p className={styles.muted}>
 				{formdata.formdata.tooltip}{" "}
-				<a href="#" onClick={() => setIsNew(!isNew)}>
+				<a href="#" onClick={() => setIsSigningUp(!isSigningUp)}>
 					{formdata.formdata.link}
 				</a>
 			</p>
 			<form>
 				<div className="border-bottom text-center mb-4">
-					<a href="/">Github</a>
+					<a href="/api/auth/github">Github</a>
 				</div>
 				{getRenderedContent()}
 				<button
