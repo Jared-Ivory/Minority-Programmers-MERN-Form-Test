@@ -7,10 +7,10 @@ import Logo from "../assets/svg/mp_asset_icon.svg";
 import FormData from "../constants";
 
 const EntryForm = () => {
-	const [isNew, setIsNew] = useState(true);
+	const [isSigningUp, setIsSigningUp] = useState(true);
 	const [formdata, setFormData] = useState(FormData.SignUpForm);
 	useEffect(() => {
-		switch (isNew) {
+		switch (isSigningUp) {
 			case true:
 				setFormData(FormData.SignUpForm);
 				break;
@@ -19,7 +19,7 @@ const EntryForm = () => {
 				break;
 		}
 	}),
-		[isNew];
+		[isSigningUp];
 	return (
 		<div className="container shadow bg-white rounded p-0 overflow-hidden w-75">
 			<div className={styles.entry}>
@@ -36,7 +36,11 @@ const EntryForm = () => {
 						</div>
 					</div>
 					<div className="col-sm">
-						<LoginForm formdata={formdata} isNew={isNew} setIsNew={setIsNew} />
+						<LoginForm
+							formdata={formdata}
+							isSigningUp={isSigningUp}
+							setIsSigningUp={setIsSigningUp}
+						/>
 					</div>
 				</div>
 			</div>

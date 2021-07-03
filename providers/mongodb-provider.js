@@ -1,6 +1,5 @@
-import Adapters from "next-auth/adapters";
+import axios from "axios";
 import Providers from "next-auth/providers";
-import dbConnect from "../utils/dbConnect";
 
 const MongoDBProvider = Providers.Credentials({
 	name: "MongoDB Provider",
@@ -9,16 +8,13 @@ const MongoDBProvider = Providers.Credentials({
 		password: { label: "Password", type: "password" },
 	},
 	async authorize(credentials) {
-		const db = await dbConnect(); // retrieve db instance
-
-		db.collection("users", (err, usersCollection) =>
-			// on retrieval of the users collection run any desired query methods to the collection
-			usersCollection.find({}).toArray((err, users) => {
-				// respond with users as json
-				const user = users.find({ email: credentials.email });
-				console.log(user);
-			})
-		);
+		axios
+			.post("http://localhost:3000/api/users", credentials)
+			.then(({ data }) => {
+				if (data.email === credentials.email) {
+					return data;
+				}
+			});
 	},
 });
 

@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const UserInfoSchema = new Schema({
-	fullname: {
+const UserDataSchema = new Schema({
+	email: {
 		type: String,
 		required: true,
+	},
+	fullname: {
+		type: String,
 	},
 	languages: {
 		type: Array,
@@ -14,5 +17,5 @@ const UserInfoSchema = new Schema({
 	},
 });
 
-export default mongoose.models.UserInfo ||
-	mongoose.model("UserInfo", UserInfoSchema);
+export default mongoose.models.UserData ||
+	mongoose.model("UserData", UserDataSchema);

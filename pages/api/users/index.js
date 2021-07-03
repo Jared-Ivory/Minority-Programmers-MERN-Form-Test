@@ -14,6 +14,15 @@ export default async (req, res) => {
 			);
 			break;
 		case "POST":
+			const creds = req.body;
+			db.collection("users", async (err, usersCollection) => {
+				if (err) {
+					res.status(400).json(err);
+				} else {
+					const user = await usersCollection.findOne({ email: creds.email });
+					res.status(200).json(user);
+				}
+			});
 			break;
 	}
 };
