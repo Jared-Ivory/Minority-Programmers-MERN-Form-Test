@@ -2,11 +2,15 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserInfoSchema = new Schema({
-	languages: {
+	fullname: {
 		type: String,
+		required: true,
+	},
+	languages: {
+		type: Array,
 	},
 	likes: {
-		type: String,
+		type: Array,
 	},
 });
 

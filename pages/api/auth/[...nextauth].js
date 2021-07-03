@@ -1,11 +1,9 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import MongoDBProvider from "../../../providers/mongodb-provider";
 import Adapters from "next-auth/adapters";
 
 import User, { UserSchema } from "../../../models/User";
-import UserInfo from "../../../models/UserInfo";
-
-import dbConnect from "../../../utils/dbConnect";
 
 export default NextAuth({
 	providers: [
@@ -14,12 +12,16 @@ export default NextAuth({
 			clientSecret: process.env.GITHUB_SECRET,
 			scope: "user",
 		}),
+		MongoDBProvider,
 	],
 	adapter: Adapters.TypeORM.Adapter(process.env.MONGODB_URI, {
 		models: {
 			User: { model: User, schema: UserSchema },
 		},
 	}),
+	session: {
+		jwt: true,
+	},
 	callbacks: {
 		async signIn(profile, account, metadata) {
 			// https://developer.github.com/v3/users/emails/#list-email-addresses-for-the-authenticated-user

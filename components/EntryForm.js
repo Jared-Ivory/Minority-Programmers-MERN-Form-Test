@@ -1,9 +1,25 @@
-import React from "react";
-import { Form } from ".";
-import styles from "../styles/EntryForm.module.css";
+import React, { useState, useEffect } from "react";
+import { LoginForm } from ".";
 
+import styles from "../styles/EntryForm.module.css";
 import Logo from "../assets/svg/mp_asset_icon.svg";
+
+import FormData from "../constants";
+
 const EntryForm = () => {
+	const [isNew, setIsNew] = useState(true);
+	const [formdata, setFormData] = useState(FormData.SignUpForm);
+	useEffect(() => {
+		switch (isNew) {
+			case true:
+				setFormData(FormData.SignUpForm);
+				break;
+			case false:
+				setFormData(FormData.LoginForm);
+				break;
+		}
+	}),
+		[isNew];
 	return (
 		<div className="container shadow bg-white rounded p-0 overflow-hidden w-75">
 			<div className={styles.entry}>
@@ -13,17 +29,14 @@ const EntryForm = () => {
 							<Logo className={styles.logo} />
 							<div className={styles.content}>
 								<div className="text-center">
-									<h1 className="mb-3 bold">Register for MPA</h1>
-									<p>
-										To keep connecting with us please register with your
-										personal info.
-									</p>
+									<h1 className="mb-3 bold">{formdata.banner.title}</h1>
+									<p>{formdata.banner.content}</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className="col-sm">
-						<Form />
+						<LoginForm formdata={formdata} isNew={isNew} setIsNew={setIsNew} />
 					</div>
 				</div>
 			</div>

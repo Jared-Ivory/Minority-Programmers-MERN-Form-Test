@@ -1,5 +1,5 @@
 import Home from "./Home";
 import EntryForm from "./EntryForm";
-import Form from "./Form";
+import LoginForm from "./LoginForm";
 
-export { EntryForm, Form, Home };
+export { EntryForm, LoginForm, Home };
