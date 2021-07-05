@@ -19,9 +19,6 @@ export default NextAuth({
 			User: { model: User, schema: UserSchema },
 		},
 	}),
-	session: {
-		jwt: true,
-	},
 	callbacks: {
 		async signIn(profile, account, metadata) {
 			// https://developer.github.com/v3/users/emails/#list-email-addresses-for-the-authenticated-user

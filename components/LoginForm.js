@@ -71,7 +71,6 @@ const LoginForm = ({ formdata, setIsSigningUp, isSigningUp }) => {
 		}
 	};
 
-	const handleGitHub = () => {};
 	return (
 		<div className={styles.form + " p-5"}>
 			<h2>{formdata.formdata.title}</h2>
@@ -81,18 +80,23 @@ const LoginForm = ({ formdata, setIsSigningUp, isSigningUp }) => {
 					{formdata.formdata.link}
 				</a>
 			</p>
-			<form>
-				<div className="border-bottom text-center mb-4">
-					<>
-						{Object.values(providers).map((provider) => (
+			<div className="border-bottom text-center mb-4">
+				<>
+					{Object.values(providers).map((provider) => {
+						if (provider.name === "MongoDB Provider") {
+							return;
+						}
+						return (
 							<div key={provider.name}>
 								<button onClick={() => signIn(provider.id)}>
 									Sign in with {provider.name}
 								</button>
 							</div>
-						))}
-					</>
-				</div>
+						);
+					})}
+				</>
+			</div>
+			<form>
 				{getRenderedContent()}
 				<button
 					className="btn btn-lg btn-block"

@@ -11,7 +11,7 @@ const Home = () => {
 	const beginSignInFlow = () => {
 		setTimeout(() => {
 			router.push(`/auth/signin`);
-		}, 3000);
+		}, 500);
 	};
 	if (loading) {
 		return <div>Loading...</div>;
